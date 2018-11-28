@@ -1,0 +1,6 @@
+data/
+burner_creds.json
+.DS_Store
+node_modules/
+storage/*
+config/index.js

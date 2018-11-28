@@ -1,0 +1,22 @@
+{
+  "name": "scraping-tools",
+  "version": "1.0.0",
+  "description": "A set of high-level tools for commonly implemented patterns of web scraping.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/* --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spencermacbeth/scraping-tools.git"
+  },
+  "author": "Spencer MacBeth",
+  "license": "MIT",
+  "homepage": "https://github.com/spencermacbeth/scraping-tools#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.2",
+    "selenium": "^2.20.0"
+  }
+}

@@ -1,0 +1,17 @@
+
+module.exports = {
+    appStoragePath: '/path/to/project/storage/app',
+    testStoragePath: '/path/to/project/storage/test',
+    testResourcesPath: '/path/to/project/test/resources',
+    liveTestConfig: {
+        DeliveryMedium: {
+            runLiveTest: false,
+        },
+        RequestDeliveryMedium: {
+            runLiveTest: false,
+        },
+        SeleniumDeliveryMedium: {
+            runLiveTest: false,
+        },
+    }
+}
