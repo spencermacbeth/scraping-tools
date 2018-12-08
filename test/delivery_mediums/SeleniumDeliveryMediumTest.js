@@ -163,6 +163,77 @@ describe('SeleniumDeliveryMedium', () => {
 
     });
 
+    it('should hover on an element when using behaviouralMimics', () => {
+        server.listen(3000);
+
+        // delivery medium setup
+        const testConfig = {
+            browserType: 'firefox',
+            paginationType: 'NEXT',
+            browserOptions: {
+                headless: true,
+            },
+            behaviouralMimics: true,
+        };
+        const seleniumDeliveryMedium = new SeleniumDeliveryMedium(testConfig);
+        seleniumDeliveryMedium.setDataPath(testDataPath);
+
+        // test login config
+        const loginUrl = 'http://localhost:3000/login';
+        const testCredentials = {
+            user:  '',
+            password: '',
+        };
+        const testSelectors = {
+            user: {
+                value: 'username',
+                type: 'id'
+            },
+            password: {
+                value: 'password',
+                type: 'id',
+            },
+            submit: {
+                value: 'submit',
+                type:'id'
+            },
+        };
+        const loginSpec = {
+            url: loginUrl,
+            credentials: testCredentials,
+            selectors: testSelectors,
+        }
+
+        // test index scraper config
+        const firstIndexUrl = 'http://localhost:3000/listings/1';
+        const indexSelectors = {
+            listings: {
+                value: '.test-listing',
+                type: 'css'
+            },
+            nextPageSelector: {
+                value: '.test-next-page',
+                type: 'css',
+            }
+        };
+        const stopAfter = 2;
+        const indexScraperSpec = {
+            firstIndexUrl: firstIndexUrl,
+            selectors: indexSelectors,
+            stopAfter: stopAfter,
+        }
+
+        return seleniumDeliveryMedium.login(loginSpec)
+            .then(res => seleniumDeliveryMedium.scrapeIndexPages(indexScraperSpec))
+            .then(res => seleniumDeliveryMedium.browser.getCurrentUrl())
+            .then(currentUrl => {
+                const expectedCurrentUrl = 'http://localhost:3000/hover';
+                assert.equal(currentUrl, expectedCurrentUrl);
+                server.close();
+                seleniumDeliveryMedium.destroy();
+            });
+    });
+
     if (RUN_LIVE_TEST === true) {
         it('should parse the correct number of index pages for a live test', () => {
             // delivery medium setup
