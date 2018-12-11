@@ -1,9 +1,6 @@
 
-const DeliveryMediumFactory = require('/Users/spencermacbeth/Desktop/code/scrapeworks/src/delivery_mediums/DeliveryMediumFactory');
+const DeliveryMediumFactory = require('./DeliveryMediumFactory.js');
 
-/**
- * 
- */
 class DeliveryMedium {
    
     /**
