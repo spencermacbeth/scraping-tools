@@ -1,6 +1,7 @@
 
-const RequestDeliveryMedium = require('/Users/spencermacbeth/Desktop/code/scrapeworks/src/delivery_mediums/RequestDeliveryMedium');
-const SeleniumDeliveryMedium = require('/Users/spencermacbeth/Desktop/code/scrapeworks/src/delivery_mediums/SeleniumDeliveryMedium');
+const RequestDeliveryMedium = require('./RequestDeliveryMedium.js');
+const TorRequestDeliveryMedium = require('./TorRequestDeliveryMedium.js');
+const SeleniumDeliveryMedium = require('./SeleniumDeliveryMedium.js');
 
 const DeliveryMediumFactory = {
     DELIVERY_MEDIUM_TYPES: [
@@ -11,6 +12,8 @@ const DeliveryMediumFactory = {
         switch (deliveryMedium.toLowerCase()) {
             case 'request':
                 return new RequestDeliveryMedium(config);
+            case 'torrequest':
+                return new TorRequestDeliveryMedium(config);
             case 'selenium':
                 return new SeleniumDeliveryMedium(config);
             default:
