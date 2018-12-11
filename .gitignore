@@ -4,3 +4,4 @@ burner_creds.json
 node_modules/
 storage/*
 config/index.js
+notes.md

@@ -164,6 +164,7 @@ class SeleniumDeliveryMedium {
                         .then(html => this.consumePageSource(html))
                         .then(processedHtml => this.dataCache.push(processedHtml))  
                         .then(res => this.browser.get(url))
+                        .then(res => this.performBehaviourMimics())
                         .then(res => this.waitForElement(selectors.listings.value, selectors.listings.type))
                         .then(res => this.findElements(selectors.listings.value, selectors.listings.type))
                         .then(res => currElements = res)
@@ -198,6 +199,35 @@ class SeleniumDeliveryMedium {
         } else {
             return this.findElement(nextPageSelector.value, nextPageSelector.type);
         }
+    }
+
+    getRandomDiv() {
+        return this.findElements('//div', 'xpath')
+            .then(elements => elements[parseInt(Math.random() * elements.length)])
+    }
+
+    performBehaviourMimics() {
+        return this.moveToRandomDiv();
+    }
+
+    moveToRandomDiv() {
+        if (!this.behaviouralMimics) {
+            return;
+        }
+
+        // the time in miliseconds to use as the minimum time to execute the mouse move
+        const moveTimeLowerBound = 500;
+        const moveTimeUpperBound = 2000;
+        const moveTime = parseInt(Math.random() * (moveTimeUpperBound - moveTimeLowerBound)) + moveTimeLowerBound;
+        return this.getRandomDiv()
+            .then(div => {
+                return this.browser.actions({bridge: true})
+                    .move({
+                        x: div.getLocation().getX(),
+                        y: div.getLocation().getY(),
+                        duration: moveTime,
+                    });
+            });
     }
 
     setConsumerFunction(consumerFunction) {
